@@ -29,9 +29,9 @@ class WideColor {
       return this;
     } else {
       return Matrix(<double>[
-        1.22494, -0.22494, 0, //
-        -0.0420568, 1.04206, 0, //
-        -0.0196327, -0.0788819, 1.09851
+        1.3067, -0.2981, 0.2132, -0.2136, //
+        -0.1174, 1.1277, 0.1097, -0.1095, //
+        0.2148, 0.0543, 1.4069, -0.3649
       ]).transform(this, ColorSpace.sRGB);
     }
   }
@@ -41,9 +41,9 @@ class WideColor {
       return this;
     } else {
       return Matrix(<double>[
-        0.8224621, 0.1775379, 0.0000000, //
-        0.0331941, 0.9668059, 0.0000000, //
-        0.0170827, 0.0725972, 0.9103202
+        0.8081, 0.2202, -0.1396, 0.1457, //
+        0.0965, 0.9164, -0.0861, 0.0895, //
+        -0.1271, -0.0690, 0.7354, 0.2337
       ]).transform(this, ColorSpace.displayP3);
     }
   }
@@ -58,9 +58,18 @@ class Matrix {
   WideColor transform(WideColor color, ColorSpace resultColorSpace) {
     return WideColor.fromARGB(
         color.a,
-        values[0] * color.r + values[1] * color.g + values[2] * color.b,
-        values[3] * color.r + values[4] * color.g + values[5] * color.b,
-        values[6] * color.r + values[7] * color.g + values[8] * color.b,
+        values[0] * color.r +
+            values[1] * color.g +
+            values[2] * color.b +
+            values[3],
+        values[4] * color.r +
+            values[5] * color.g +
+            values[6] * color.b +
+            values[7],
+        values[8] * color.r +
+            values[9] * color.g +
+            values[10] * color.b +
+            values[11],
         resultColorSpace);
   }
 }
@@ -262,7 +271,7 @@ class ColorSlider extends StatelessWidget {
         Row(
           children: [
             Text('$label: '),
-            Text(value.toStringAsFixed(2)),
+            Text(value.toStringAsFixed(3)),
           ],
         ),
         Slider(
